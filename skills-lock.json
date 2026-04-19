@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "skills": {
+    "architect": {
+      "source": "TheBeardedBearSAS/claude-craft",
+      "sourceType": "github",
+      "computedHash": "60f21fc6f4593555531099b0de1acfe16cbbb4c9c144b99edb293d6b1a89e4b3"
+    },
+    "architecture-clean-ddd": {
+      "source": "TheBeardedBearSAS/claude-craft",
+      "sourceType": "github",
+      "computedHash": "fb6d78b6e64a84424f8b6c9a92e3a0e816be200a7feb36b3d38227091bafde46"
+    },
+    "ddd-patterns": {
+      "source": "TheBeardedBearSAS/claude-craft",
+      "sourceType": "github",
+      "computedHash": "d7dc25f7610af98393faa8164ce0804a41d67637f6dc64eb811e93755ea6f029"
+    },
+    "kiss-dry-yagni": {
+      "source": "TheBeardedBearSAS/claude-craft",
+      "sourceType": "github",
+      "computedHash": "fe64fd54720d364789122510b794ee3f87cdd209fc8c38c91d0eac5ba148b54a"
+    },
+    "swagger-typescript-api-es": {
+      "source": "hunghg255/swagger-typescript-api-es",
+      "sourceType": "github",
+      "computedHash": "2318a80242f8dc2d2bc04074052e414916c1aaf294077e34cd87ef9e3ef44227"
+    }
+  }
+}

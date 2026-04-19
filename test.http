@@ -1,0 +1,22 @@
+### GET HOME
+GET http://localhost:3000/
+
+### GET /hola
+GET http://localhost:3000/hola
+
+### POST /hola
+POST http://localhost:3000/hola
+
+### Crear Hotel
+POST http://localhost:3000/hotel
+Content-Type: application/json
+
+{
+    "nombre": "UCB - HOTEL 2",
+    "direccion": "España",
+    "estrellas": 3
+}
+
+### Get Hotel
+### Crear Hotel
+GET http://localhost:3000/hotel/1jmsddddd
