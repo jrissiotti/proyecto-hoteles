@@ -1,5 +1,6 @@
 export class DatabaseNotFoundException extends Error {
-    constructor(message: string){
-        super(message);
+    constructor(mensaje: string) {
+        super(mensaje);
+        this.name = "DatabaseNotFoundException";
     }
 }

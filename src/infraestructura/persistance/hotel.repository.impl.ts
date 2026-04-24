@@ -20,5 +20,12 @@ export class MemoryHotelRepositoryImpl implements IHotelRepository {
             throw new DatabaseNotFoundException('Hotel no encontrado')
         return hotel;  
     }
+    actualizar(hotel: Hotel): void {
+        const index = this.hoteles.findIndex(h => h.getId() === hotel.getId());
+        if (index === -1) {
+            throw new DatabaseNotFoundException('No se puede actualizar: Hotel no encontrado');
+        }
+        this.hoteles[index] = hotel;
+    }
 
 }

@@ -6,6 +6,8 @@ import { agregarHabitacionSimpleUseCase } from '../../aplicacion/casosDeUso/agre
 import { ExceptionHandler, IHttpResponse } from '../middlewares/ExceptionHandler';
 import { Hotel } from '../../dominio/Hotel';
 import { IdParamvalidator } from '../validations/id-param.validator';
+import { AgregarHabitacionDobleUseCase } from '../../aplicacion/casosDeUso/agregarHabitacionDoble.use-case';
+import { FiltrarHabitacionesDisponiblesUseCase } from '../../aplicacion/casosDeUso/filtrarHabitacionesDisponibles.use-case';
 
 const memoriHotelRepository = new MemoryHotelRepositoryImpl();
 
@@ -195,6 +197,70 @@ export function initializeController(app: express.Express) {
         }
     });
 
+    /**
+     * @swagger
+     * /hotel/{id}/habitacion-doble:
+     * post:
+     * summary: Agregar habitación doble a un hotel
+     * tags: [Habitaciones]
+     */
+    app.post('/hotel/:id/habitacion-doble', (req: express.Request, res: express.Response) => {
+        const params = req.params as { id: string };
+        const body = req.body as { numeroHabitacion: number; precio: number };
+        let respError: IHttpResponse | undefined = undefined;
+
+        try {
+            IdParamvalidator.validate(params.id);
+            
+            // Instancia en camelCase para ser consistente
+            const agregarHabitacionDobleUC = new AgregarHabitacionDobleUseCase(memoriHotelRepository);
+            const hotelActualizado = agregarHabitacionDobleUC.execute(params.id, body);
+            
+            res.status(201).json({ 
+                mensaje: 'Habitación doble agregada exitosamente',
+                hotelId: hotelActualizado.getId() 
+            });
+        } catch (err) {
+            respError = ExceptionHandler.handle(err as Error);
+            return res.status(respError.status).json(respError);
+        }
+    });
+
+    /**
+     * @swagger
+     * /hotel/{id}/filtrar-habitaciones-disponibles:
+     * get:
+     * summary: Filtrar habitaciones disponibles
+     * tags: [Consultas]
+     */
+    app.get('/hotel/:id/filtrar-habitaciones-disponibles', (req: express.Request, res: express.Response) => {
+        const params = req.params as { id: string };
+        const { capacidad, fechaInicio, fechaFin } = req.query;
+        let respError: IHttpResponse | undefined = undefined;
+
+        try {
+            IdParamvalidator.validate(params.id);
+
+            if (!capacidad || !fechaInicio || !fechaFin) {
+                throw new Error("Faltan parámetros de filtrado (capacidad, fechaInicio, fechaFin)");
+            }
+
+            // Instancia en camelCase
+            const filtrarHabitacionesUC = new FiltrarHabitacionesDisponiblesUseCase(memoriHotelRepository);
+            const habitaciones = filtrarHabitacionesUC.execute(
+                params.id, 
+                Number(capacidad), 
+                fechaInicio as string, 
+                fechaFin as string
+            );
+            
+            res.status(200).json(habitaciones);
+        } catch (err) {
+            respError = ExceptionHandler.handle(err as Error);
+            return res.status(respError.status).json(respError);
+        }
+    });
+
     // POST /hotel/{id}/habitacion-doble
 
 
@@ -205,4 +271,5 @@ export function initializeController(app: express.Express) {
         R.- Read
         D.- Delete
     */
+   
 }
