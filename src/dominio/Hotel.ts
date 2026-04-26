@@ -37,4 +37,7 @@ export class Hotel {
       (h) => h.disponible(fechaInicio, fechaFin) && h.capacidad >= capacidad,
     );
   }
+  public getHabitaciones(): Habitacion[] {
+    return this.habitaciones;
+}
 }

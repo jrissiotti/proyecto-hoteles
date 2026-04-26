@@ -7,7 +7,7 @@ export abstract class Habitacion {
   private _reservas: Reserva[] = []; // historial de reservas
 
   constructor(
-    private numero: number,
+    public numero: number,
     private precioBase: number,
     private _capacidad: number = 1,
   ) {}
